@@ -12,6 +12,7 @@ public class Window extends JFrame {
     public Window() {
         GameScen gameScene = new GameScen(0, 0, WINDOW_WHIDTH, WINDOW_HIGHET);
         this.add(gameScene);
+        this.setTitle("Formola 1");
         this.setSize(WINDOW_WHIDTH, WINDOW_HIGHET);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setLocationRelativeTo(null);
@@ -20,4 +21,16 @@ public class Window extends JFrame {
         this.setResizable(false);
 
     }
+    
 }
+
+
+
+
+
+
+
+
+
+
+
