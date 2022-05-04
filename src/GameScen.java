@@ -27,7 +27,7 @@ public class GameScen extends JPanel  {
         this.mainGameLoop();
 
         //obstacles  +image+bug
-
+int test=0;
         Random random = new Random();
         int lower = -20000;
         int maxer = 1;
