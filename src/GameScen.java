@@ -29,7 +29,7 @@ public class GameScen extends JPanel  {
         //obstacles  +image+bug
 
         Random random = new Random();
-        int lower = -800001;
+        int lower = -800002;
         int maxer = 1;
         this.obstacles = new CustomRectangel[4000];
         for (int i = 0; i < this.obstacles.length; i++) {
