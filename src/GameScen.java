@@ -7,7 +7,7 @@ public class GameScen extends JPanel  {
     private Car pleyer;
     private CustomRectangel[] obstacles;
     private int Score=0;
-
+//
 
     public boolean Winer=true;
           public boolean play=true;
@@ -29,9 +29,9 @@ public class GameScen extends JPanel  {
         //obstacles  +image+bug
 
         Random random = new Random();
-        int lower = -20000;
+        int lower = -800000;
         int maxer = 1;
-        this.obstacles = new CustomRectangel[100];
+        this.obstacles = new CustomRectangel[4000];
         for (int i = 0; i < this.obstacles.length; i++) {
             CustomRectangel obstacle = null;
             do {
