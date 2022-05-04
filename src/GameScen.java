@@ -6,9 +6,12 @@ import java.util.Random;
 public class GameScen extends JPanel  {
     private Car pleyer;
     private CustomRectangel[] obstacles;
+    private int Score=0;
 
 
-    public GameScen(int x, int y, int WHIDTH, int HIGHET) {
+    public boolean Winer=true;
+          public boolean play=true;
+    public GameScen(int x, int y, int WHIDTH , int HIGHET) {
 
         this.setBounds(x, y, WHIDTH, HIGHET);
         //first screen  +button start +image +color gray in background
@@ -24,6 +27,7 @@ public class GameScen extends JPanel  {
         this.mainGameLoop();
 
         //obstacles  +image+bug
+
         Random random = new Random();
         int lower = -20000;
         int maxer = 1;
@@ -33,11 +37,11 @@ public class GameScen extends JPanel  {
             do {
                 int e = limit(random.nextInt(WHIDTH));
 
-                obstacle = new CustomRectangel(e, random.nextInt(maxer - lower) + lower, randomImage() );//image
+                obstacle = new CustomRectangel(e, random.nextInt(maxer - lower) + lower, randomImage());//image
             } while (obstacle.CheckCollision(this.pleyer.getFront()));
             this.obstacles[i] = obstacle;
-
         }
+
         //game over +new screen
 
     }
@@ -48,10 +52,44 @@ public class GameScen extends JPanel  {
         //main Color
         g.setColor(Color.gray);
         g.fillRect(0, 0, getWidth(), getHeight());
+        //Score
 
-        //border
+        g.setColor(Color.BLACK);
+        g.setFont(new Font("serif",Font.BOLD,20));
+        g.drawString("Score :"+Score,250,30);
+        //
+        //restart
+        if(play==false) {
+            if (Winer == false) {
+                g.setColor(Color.BLACK);
+                g.setFont(new Font("serif", Font.BOLD, 50));
+                g.drawString("Game over :", 148, 200);
+                g.drawString(" enter to the restart :", 50, 250);
+                g.drawString("your Score :" + Score, 110, 300);
+                JButton restart = new JButton("Start");
+                restart.setBounds(220, 350, 150, 100);
+                this.add(restart);
+            }
+        }
+        //Winer
+        if(Score>100000) {
+            Score = 100000;
+        }
+        if(Score==100000){
+            play =false;
+            Winer=true;
+            g.setColor(Color.black);
+            g.setFont(new Font("serif", Font.BOLD, 50));
+            g.drawString("you win:",200,270);
+            g.drawString(" enter to the restart :", 80, 325);
+            JButton restart = new JButton("Start");
+            restart.setBounds(220, 350, 150, 100);
+            this.add(restart);
+        }
 
-        //player
+
+
+        //playe
 
         this.pleyer.paintComponent(g);
         //obstacle
@@ -67,72 +105,77 @@ public class GameScen extends JPanel  {
 
         if (a < 50) {
             return 50;
-        } else if (a > 235) {
-            return 235;
+        } else if (a > 480) {
+            return 480;
         } else {
             return a;
         }
     }
      //MoveDownObstackes
     public void moveDownObstacles() {
+        if(play==true){
         for (int i = 0; i < obstacles.length; i++) {
             try {
                 obstacles[i].MoveDownObstacles();
-            }catch (NullPointerException e){
+            } catch (NullPointerException e) {
                 e.printStackTrace();
             }
-
+        }
         }
     }
 
     //game over//collision + bug + if obstacle collision in another obstacle
-    public void gameOver() {
+   public void gameOver() {
         for (int i = 0; i < obstacles.length; i++) {
-            obstacles[i].MoveDownObstacles();
+            //  obstacles[i].MoveDownObstacles();
             if (obstacles[i].CheckCollision(this.pleyer.getFront())) {
-                JLabel GameOver = new JLabel("Game Over!!!");
-                GameOver.setBounds(120, 270, 150, 100);
-                this.add(GameOver);
+                play = false;
+                Winer=false;
+                //    JLabel GameOver = new JLabel("Game Over!!!");
+                //   GameOver.setBounds(120, 270, 150, 100);
+                //  this.add(GameOver);
 
-            }
-        }
-    }
-
-    public void mainGameLoop() {
-
-        new Thread(() -> {
-            PleyerMovment PleyerMovment = new PleyerMovment(this.pleyer);
-            this.setFocusable(true);
-            this.requestFocus();
-            this.addKeyListener(PleyerMovment);
-            while (true) {
-                try {
-                    try {
-                        moveDownObstacles();
-                    }catch (NullPointerException e){
-                        e.printStackTrace();
-                    }
-
-                    gameOver();
-                    repaint();
-                    Thread.sleep(15);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
+                   }
+                 }
                 }
+
+                public void mainGameLoop () {
+
+                    new Thread(() -> {
+                        PleyerMovment PleyerMovment = new PleyerMovment(this.pleyer);
+                        this.setFocusable(true);
+                        this.requestFocus();
+                        this.addKeyListener(PleyerMovment);
+                        while (true) {
+                            try {
+                                try {
+                                    moveDownObstacles();
+                                } catch (NullPointerException e) {
+                                    e.printStackTrace();
+                                }
+                                if(play==true)
+
+                                Score++;
+                                gameOver();
+                               repaint();
+                                Thread.sleep(15);
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }).start();
+                }
+                public String randomImage () {
+                    String[] imageURL = new String[4];
+                    imageURL[0] = "src/alpina final.png";
+                    imageURL[1] = "src/mercedese f1.png";
+                    imageURL[2] = "src/red.png";
+                    imageURL[3] = "src/red bull f1.png";
+
+                    Random random = new Random();
+
+                    String a = imageURL[random.nextInt(4)];
+                    return a;
+                }
+
             }
-        }).start();
-    }
-    public String randomImage(){
-        String[] imageURL = new String[4];
-        imageURL[0]="src/alpina final.png";
-        imageURL[1]="src/mercedese f1.png";
-        imageURL[2]="src/red.png";
-        imageURL[3]="src/red bull f1.png";
-
-        Random random = new Random();
-
-        String a=imageURL[random.nextInt(4)];
-        return a;
-    }
-
-}

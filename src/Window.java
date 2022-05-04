@@ -6,7 +6,7 @@ public class Window extends JFrame {
         Window window = new Window();
     }
 
-    public static final int WINDOW_WHIDTH = 350;
+    public static final int WINDOW_WHIDTH = 600;
     public static final int WINDOW_HIGHET = 700;
 
     public Window() {

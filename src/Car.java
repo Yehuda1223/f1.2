@@ -32,5 +32,7 @@ public class Car extends JPanel{
 
     public void paintComponent(Graphics g) {
         g.drawImage(guyImage, this.Formola.getX(),  this.Formola.getY(), this.Formola.getWidth(), this.Formola.getHeighet(),this);
+
+
     }
 }

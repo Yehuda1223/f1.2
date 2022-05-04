@@ -7,11 +7,12 @@ public class CustomRectangel extends Canvas {
     final int heighet = 120;
     public String photo;
 
+
     public int limit(int a) {
         if (a < 50) {
             return 50;
-        } else if (a > 235) {
-            return 235;
+        } else if (a > 480) {
+            return 480;
         } else {
             return a;
         }
@@ -98,6 +99,7 @@ public class CustomRectangel extends Canvas {
         Rectangle thisRectangel = new Rectangle(this.x, this.y, this.width, this.heighet);
         Rectangle otherRectangel = new Rectangle(other.x, other.y, other.width, other.heighet);
         if (thisRectangel.intersects(otherRectangel)) {
+         //   play=false;
             collision = true;
         }
         return collision;
