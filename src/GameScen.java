@@ -61,6 +61,14 @@ int t;
         //restart
         if(play==false) {
             if (Winer == false) {
+                JFrame r=new JFrame();
+                r.setTitle("Formola 5");
+                r.setSize(300, 300);
+                r.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                r.setLocationRelativeTo(null);
+                this.setVisible(true);
+                this.setLayout(null);
+                r.setResizable(false);
                 g.setColor(Color.BLACK);
                 g.setFont(new Font("serif", Font.BOLD, 50));
                 g.drawString("Game over :", 148, 200);
